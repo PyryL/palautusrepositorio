@@ -1,4 +1,4 @@
-from statistics import Statistics
+from statistics import Statistics, SortBy
 from player_reader import PlayerReader
 
 
@@ -6,7 +6,7 @@ def main():
     reader = PlayerReader()
     stats = Statistics(reader)
     philadelphia_flyers_players = stats.team("PHI")
-    top_scorers = stats.top(10)
+    top_scorers = stats.top(10, SortBy.GOALS)
 
     print("Philadelphia Flyers:")
     for player in philadelphia_flyers_players:

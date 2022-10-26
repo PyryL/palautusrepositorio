@@ -1,5 +1,5 @@
 import unittest
-from statistics import Statistics
+from statistics import Statistics, SortBy
 from player import Player
 
 class PlayerReaderStub:
@@ -33,7 +33,7 @@ class TestStatistics(unittest.TestCase):
         edm_team_players = [str(player) for player in self.reader.get_players() if player.team == "EDM"]
         self.assertSequenceEqual(team_players, edm_team_players)
     
-    def test_top_player(self):
+    def test_top_player_by_points(self):
         # check that stats return correct list of players based on their points
         # NOTE: parameter of `statistics.top` is zero-based, which I think is a feature, not a bug
         #       That is why parameter value 1 should return two top players.
@@ -41,5 +41,23 @@ class TestStatistics(unittest.TestCase):
         correct_players = [
             str(self.reader.get_players()[4]),
             str(self.reader.get_players()[1])
+        ]
+        self.assertSequenceEqual(top_players, correct_players)
+    
+    def test_top_player_by_goals(self):
+        # check that stats return correct list of players based on their goals
+        top_players = [str(player) for player in self.statistics.top(1, SortBy.GOALS)]
+        correct_players = [
+            str(self.reader.get_players()[1]),
+            str(self.reader.get_players()[3])
+        ]
+        self.assertSequenceEqual(top_players, correct_players)
+    
+    def test_top_player_by_assists(self):
+        # check that stats return correct list of players based on their assist points
+        top_players = [str(player) for player in self.statistics.top(1, SortBy.ASSISTS)]
+        correct_players = [
+            str(self.reader.get_players()[4]),
+            str(self.reader.get_players()[3])
         ]
         self.assertSequenceEqual(top_players, correct_players)
