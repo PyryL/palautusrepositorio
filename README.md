@@ -1,6 +1,9 @@
 # Ohjelmistotuotanto
 
 [Ohjelmistotuotanto](https://ohjelmistotuotanto-hy.github.io)-kurssi Helsingin yliopistossa syksyllä 2022.
+
 Katso myös samaan kurssiin liittyvä toinen repo [Ohtuvarasto](https://github.com/PyryL/ohtuvarasto).
-Osa tämän repon sisällöistä kopioitu tehtävänantoihin liittyvästä 
-[reposta](https://github.com/ohjelmistotuotanto-hy/tehtavat).
+
+## Commit-merkinnät
+
+Commit-viesteissä olevat mystiset merkinnät, jotka ovat muotoa `vXtY`, viittaavat viikon X tehtävään Y.
