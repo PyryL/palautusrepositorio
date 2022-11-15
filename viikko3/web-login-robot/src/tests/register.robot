@@ -12,12 +12,26 @@ Register With Valid Username And Password
     Submit Registration
     Registration Should Succeed
 
+Login After Successful Registration
+    Go To Login Page
+    Set Username  ville
+    Set Password  ville123
+    Submit Credentials
+    Login Should Succeed
+
 Register With Too Short Username And Valid Password
     Set Username  ka
     Set Password  kalle123
     Set Confirmation Password  kalle123
     Submit Registration
     Registration Should Fail With Message  Username too short or contains invalid characters
+
+Login After Failed Registration
+    Go To Login Page
+    Set Username  ka
+    Set Password  kalle123
+    Submit Credentials
+    Login Should Fail With Message  Invalid username or password
 
 Register With Valid Username And Too Short Password
     Set Username  kalle
