@@ -1,1 +1,4 @@
 .DS_Store
+
+# for robots framework's SeleniumLibrary
+*.log
