@@ -4,10 +4,13 @@ from player import Player
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2021-22/players"
     response = requests.get(url).json()
-    
+
     players = []
+    longestName = -1
 
     for player_dict in response:
+        if player_dict['nationality'] != "FIN":
+            continue
         player = Player(
             player_dict['name'],
             player_dict['team'],
@@ -16,10 +19,14 @@ def main():
             player_dict['assists']
         )
         players.append(player)
+        if len(player_dict['name']) > longestName:
+            longestName = len(player_dict['name'])
+    
+    players.sort(key=lambda p : p.points, reverse=True)
 
     for player in players:
-        if player.nationality == "FIN":
-            print(player)
+        player.set_name_field_length(longestName)
+        print(player)
 
 if __name__ == "__main__":
     main()
