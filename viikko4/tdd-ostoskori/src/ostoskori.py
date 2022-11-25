@@ -7,12 +7,7 @@ class Ostoskori:
         # ostoskori tallettaa Ostos-oliota, yhden per korissa oleva Tuote
 
     def tavaroita_korissa(self):
-        pass
-        # kertoo korissa olevien tavaroiden lukumäärän
-        # jos koriin lisätty 2 kpl tuotetta "maito",
-        #   tulee metodin palauttaa 2
-        # jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto",
-        #   tulee metodin palauttaa 2
+        return 0
 
     def hinta(self):
         return 0
