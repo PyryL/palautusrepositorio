@@ -8,12 +8,12 @@ from tuote import Tuote
 class TestKauppa(unittest.TestCase):
     def setUp(self):
         self.pankki_mock = Mock()
-        viitegeneraattori_mock = Mock()
-        viitegeneraattori_mock.uusi.return_value = 45
+        self.viitegeneraattori_mock = Mock()
+        self.viitegeneraattori_mock.uusi.return_value = 45
         varasto_mock = Mock()
         varasto_mock.saldo.side_effect = self.varasto_saldo
         varasto_mock.hae_tuote.side_effect = self.varasto_hae_tuote
-        self.kauppa = Kauppa(varasto_mock, self.pankki_mock, viitegeneraattori_mock)
+        self.kauppa = Kauppa(varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
         self.kauppa.aloita_asiointi()
 
     def varasto_saldo(self, tuote_id):
@@ -60,3 +60,18 @@ class TestKauppa(unittest.TestCase):
         self.kauppa.lisaa_koriin(3)
         self.kauppa.tilimaksu("pekka", "12345")
         self.pankki_mock.tilisiirto.assert_called_with("pekka", 45, "12345", "33333-44455", 5)
+
+    def test_aloita_asiointi_nollaa_edelliset_ostokset(self):
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("pekka", "12345")
+        self.pankki_mock.tilisiirto.assert_called_with(ANY, ANY, ANY, ANY, 7)
+
+    def test_uusi_viitenumero_pyydetaan_jokaiselle_maksutapahtumalle(self):
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("pekka", "12345")
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("matti", "98765")
+        self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 2)
