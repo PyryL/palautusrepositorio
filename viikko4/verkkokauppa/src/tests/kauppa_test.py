@@ -10,10 +10,10 @@ class TestKauppa(unittest.TestCase):
         self.pankki_mock = Mock()
         self.viitegeneraattori_mock = Mock()
         self.viitegeneraattori_mock.uusi.return_value = 45
-        varasto_mock = Mock()
-        varasto_mock.saldo.side_effect = self.varasto_saldo
-        varasto_mock.hae_tuote.side_effect = self.varasto_hae_tuote
-        self.kauppa = Kauppa(varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
+        self.varasto_mock = Mock()
+        self.varasto_mock.saldo.side_effect = self.varasto_saldo
+        self.varasto_mock.hae_tuote.side_effect = self.varasto_hae_tuote
+        self.kauppa = Kauppa(self.varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
         self.kauppa.aloita_asiointi()
 
     def varasto_saldo(self, tuote_id):
@@ -75,3 +75,8 @@ class TestKauppa(unittest.TestCase):
         self.kauppa.lisaa_koriin(2)
         self.kauppa.tilimaksu("matti", "98765")
         self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 2)
+
+    def test_korista_poisto_palauttaa_varastoon(self):
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.poista_korista(1)
+        self.varasto_mock.palauta_varastoon.assert_called_once()
