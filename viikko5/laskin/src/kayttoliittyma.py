@@ -27,7 +27,7 @@ class Nollaus(Toiminto):
 
 class Kumoa(Toiminto):
     def suorita(self):
-        pass
+        getattr(self._sovelluslogiikka, "kumoa")()
 
 class Kayttoliittyma:
     def __init__(self, sovellus, root):
