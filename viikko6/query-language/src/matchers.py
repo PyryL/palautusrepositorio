@@ -1,20 +1,29 @@
 class QueryBuilder:
-    def __init__(self):
-        self._and_matchers = []
+    def __init__(self, and_matchers = [], or_matchers = []):
+        self._and_matchers = and_matchers
+        self._or_matchers = or_matchers
 
     def playsIn(self, team):
-        self._and_matchers.append(PlaysIn(team))
-        return self
+        new_and_matchers = self._and_matchers[:]
+        new_and_matchers.append(PlaysIn(team))
+        return QueryBuilder(new_and_matchers)
 
     def hasAtLeast(self, value, attr):
-        self._and_matchers.append(HasAtLeast(value, attr))
-        return self
+        new_and_matchers = self._and_matchers[:]
+        new_and_matchers.append(HasAtLeast(value, attr))
+        return QueryBuilder(new_and_matchers)
 
     def hasFewerThan(self, value, attr):
-        self._and_matchers.append(HasFewerThan(value, attr))
-        return self
+        new_and_matchers = self._and_matchers[:]
+        new_and_matchers.append(HasFewerThan(value, attr))
+        return QueryBuilder(new_and_matchers)
+
+    def oneOf(self, *matchers):
+        return QueryBuilder(or_matchers=matchers)
 
     def build(self):
+        if len(self._or_matchers) > 0:
+            return Or(*self._or_matchers)
         return And(*self._and_matchers)
 
 class And:
