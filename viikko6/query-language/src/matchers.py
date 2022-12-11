@@ -1,3 +1,22 @@
+class QueryBuilder:
+    def __init__(self):
+        self._and_matchers = []
+
+    def playsIn(self, team):
+        self._and_matchers.append(PlaysIn(team))
+        return self
+
+    def hasAtLeast(self, value, attr):
+        self._and_matchers.append(HasAtLeast(value, attr))
+        return self
+
+    def hasFewerThan(self, value, attr):
+        self._and_matchers.append(HasFewerThan(value, attr))
+        return self
+
+    def build(self):
+        return And(*self._and_matchers)
+
 class And:
     def __init__(self, *matchers):
         self._matchers = matchers
