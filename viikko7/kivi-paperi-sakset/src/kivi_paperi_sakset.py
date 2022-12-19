@@ -1,6 +1,6 @@
 from tuomari import Tuomari
 
-class Peli:
+class KiviPaperiSakset:
     def pelaa(self):
         tuomari = Tuomari()
         tekoaly = self._luo_tekoaly()

@@ -1,6 +1,6 @@
 from tekoaly import Tekoaly
-from peli import Peli
+from kivi_paperi_sakset import KiviPaperiSakset
 
-class KPSTekoaly(Peli):
+class KPSTekoaly(KiviPaperiSakset):
     def _luo_tekoaly(self):
         return Tekoaly()

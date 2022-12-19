@@ -1,6 +1,6 @@
 from tekoaly_parannettu import TekoalyParannettu
-from peli import Peli
+from kivi_paperi_sakset import KiviPaperiSakset
 
-class KPSParempiTekoaly(Peli):
+class KPSParempiTekoaly(KiviPaperiSakset):
     def _luo_tekoaly(self):
         return TekoalyParannettu(10)
