@@ -1,21 +1,4 @@
-from kps_pelaaja_vs_pelaaja import KPSPelaajaVsPelaaja
-from kps_tekoaly import KPSTekoaly
-from kps_parempi_tekoaly import KPSParempiTekoaly
-
-def pelaa_peli(syote):
-    print(
-        "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
-    )
-    pelit = {
-        "a": KPSPelaajaVsPelaaja,
-        "b": KPSTekoaly,
-        "c": KPSParempiTekoaly
-    }
-    if syote[-1] in pelit:
-        peli = pelit[syote[-1]]()
-        peli.pelaa()
-        return True
-    return False
+from peli import Peli
 
 def main():
     jatketaanko_pelia = True
@@ -28,7 +11,10 @@ def main():
               )
 
         vastaus = input()
-        jatketaanko_pelia = pelaa_peli(vastaus)
+        print(
+            "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
+        )
+        jatketaanko_pelia = Peli(vastaus).pelaa()
 
 if __name__ == "__main__":
     main()
